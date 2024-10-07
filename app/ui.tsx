@@ -20,19 +20,23 @@ const notes = [
 ]
 
 export default function UI() {
-    const [activeNoteId, setActiveNoteId] = useState(null)
+    const [activeNoteId, setActiveNoteId] = useState(null);
     const [isCreating, setIsCreating] = useState(false);
 
     return (
         <main className="w-full h-screen flex flex-col">
           <Header />
           <div className="grow relative">
-            <Sidebar notes={notes}/>
+            <Sidebar 
+                activeNoteId={activeNoteId} 
+                setActiveNoteId={setActiveNoteId} 
+                setIsCreating={setIsCreating} notes={notes}
+            />
             {
                 isCreating ? (
-                    <NewNote />
+                    <NewNote setIsCreating={setIsCreating}/>
                 ) : activeNoteId ? (
-                    <NoteViewer note={null} />
+                    <NoteViewer note={notes.find((note) => note.id === activeNoteId)} />
                 ) : <EmptyNote />
             }
           </div>
